@@ -1,7 +1,10 @@
-from wsgiref import util
-from jinja2 import Template
-from pathlib import Path
 import mimetypes
+from pathlib import Path
+from wsgiref import util
+
+from jinja2 import Template
+
+from utils import HTTP_MESSAGE
 
 
 def isRequestFile(environ):
@@ -18,11 +21,11 @@ def serve_static_files(environ, response):
 
     # If requested file does not exist
     if not Path(static_file).is_file():
-        response("404 Not Found", [("Content-Type", "text/plain")])
+        response(HTTP_MESSAGE[404], [("Content-Type", "text/plain")])
         return [b"404 Not Found"]
 
     file_type = mimetypes.guess_type(static_file.name)[0]
-    response("200 OK", [("Content-Type", file_type)])
+    response(HTTP_MESSAGE[200], [("Content-Type", file_type)])
     return util.FileWrapper(open(static_file, "rb"))
 
 
