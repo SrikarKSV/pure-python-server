@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+  {% if title %}
+    <title>{{ title }} — PyProject</title>
+  {% else %}
+    <title>PyProject</title>
+  {% endif %}
+</head>
+<body>
+  <header>
+    <h1><a href="/">PyProject</a></h1>
+    <nav>
+      {% set nav_items = [{"title":"Write blog", "slug":"/new"}] %}
+      <ul>
+        {% for nav_item in nav_items %}
+          <li><a href="{{ nav_item['slug'] }}">{{ nav_item["title"] }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock content %}
+  </main>
+
+  <footer><p>Made with ❤️ by Srikar</p></footer>
+</body>
+</html>

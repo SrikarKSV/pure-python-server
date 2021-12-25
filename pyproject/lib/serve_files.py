@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from wsgiref import util
 
-from jinja2 import Template
+from jinja2 import Environment, FileSystemLoader
 
 from .utils import HTTP_MESSAGE
 
@@ -40,14 +40,15 @@ def serve_static_files(environ, response):
         return [bytes(res, "utf-8")]
 
 
-def render_template(file, response, status_code, **locals):
+def render_template(file, response, context={}, status_code=200):
     try:
         templates_directory = Path.cwd() / "pyproject" / "templates"
-        with open(templates_directory / file, "r", encoding="utf-8") as f:
-            template = Template(f.read())
-            html = template.render(**locals)
-            response(HTTP_MESSAGE[status_code], [("Content-Type", "text/html")])
-            return [bytes(html, "utf-8")]
+        template = Environment(
+            loader=FileSystemLoader(templates_directory.absolute())
+        ).get_template(file)
+        html = template.render(context)
+        response(HTTP_MESSAGE[status_code], [("Content-Type", "text/html")])
+        return [bytes(html, "utf-8")]
     except Exception as error:
         # Choose message based on mode
         msg = (
@@ -58,7 +59,6 @@ def render_template(file, response, status_code, **locals):
         return render_template(
             "error.html",
             response,
+            {"error": "500 Server error", "msg": msg},
             status_code=500,
-            error="500 Server error",
-            msg=msg,
         )

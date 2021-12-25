@@ -6,4 +6,4 @@ def app(environ, response):
     if isRequestFile(environ):
         return serve_static_files(environ, response)
 
-    return render_template("index.html", response, status_code=200)
+    return render_template("index.html", response, {"title": "Home"})
