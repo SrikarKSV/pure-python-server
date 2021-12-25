@@ -1,4 +1,6 @@
-from .lib.serve_files import isRequestFile, render_template, serve_static_files
+from .lib.utils import route_url
+from .lib.serve_files import isRequestFile, serve_static_files
+from .main import router as home_router
 
 
 def app(environ, response):
@@ -6,4 +8,6 @@ def app(environ, response):
     if isRequestFile(environ):
         return serve_static_files(environ, response)
 
-    return render_template("index.html", response, {"title": "Home"})
+    URL = environ["PATH_INFO"]
+    if route_url(["^\/$"], URL):
+        return home_router(environ, response)
