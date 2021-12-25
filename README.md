@@ -1,6 +1,6 @@
 # Pure Python web server - PyProject
 
-A blogging platform for developer to share their coding knowledge (specifically for Python)
+A blogging platform written in pure python (no web frameworks used) for developer to share their coding knowledge
 
 The goals of the project:
 
@@ -17,7 +17,7 @@ The goals of the project:
 ## Todos:
 
 - [ ] Create a routing system
-- [ ] Use Jinja templating language to render html
+- [x] Use Jinja templating language to render html
 - [ ] Serve static files
 - [ ] Parse both GET and POST requests form
 - [ ] Home page which shows all the articles
