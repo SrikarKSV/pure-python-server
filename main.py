@@ -2,14 +2,11 @@ import os
 from wsgiref import simple_server
 
 from dotenv import load_dotenv
-load_dotenv()
 
-def app(environ, response):
-    response("200 OK", [("Content-Type", "text/plain")])
-    return [b"Hello world"]
-
+from pyproject import app
 
 if __name__ == "__main__":
+    load_dotenv()  # Loads environment variables from .env file
     PORT = int(os.getenv("PORT", 3000))
     httpd = simple_server.make_server("", PORT, app)
     print(f"✅ Listening on http://localhost:{PORT}")
