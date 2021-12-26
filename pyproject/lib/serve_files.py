@@ -27,8 +27,13 @@ def serve_static_files(environ, response):
         response(HTTP_MESSAGE[404], [("Content-Type", "text/plain")])
         return [b"404 Not Found"]
 
+    # Only GET requests are accepted for static files
+    if environ["REQUEST_METHOD"] != "GET":
+        response(HTTP_MESSAGE[405], [("Content-Type", "text/plain")])
+        return [b"405 Method Not Allowed"]
+
     try:
-        file_type = mimetypes.guess_type(static_file.name)[0]
+        file_type = mimetypes.guess_type(static_file.name)[0] or "text/plain"
         response(HTTP_MESSAGE[200], [("Content-Type", file_type)])
         return util.FileWrapper(open(static_file, "rb"))
     except Exception as error:
