@@ -4,7 +4,6 @@ from wsgiref import simple_server
 from dotenv import load_dotenv
 from sqlalchemy.inspection import inspect
 
-
 from pyproject import app
 from pyproject.errors.ExceptionMiddleware import ExceptionMiddleware
 from pyproject.models import Base, engine

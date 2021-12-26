@@ -1,6 +1,8 @@
 import re
-from pyproject.lib import render_template
+
 from pyproject.errors import ErrorResponse
+from pyproject.lib import render_template
+
 
 # Build router for request method and give 403 is wrong
 def router(environ, response):
