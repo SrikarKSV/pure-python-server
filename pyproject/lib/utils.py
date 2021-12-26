@@ -5,6 +5,7 @@ HTTP_MESSAGE = {
     303: "303 See Other",
     404: "404 Not Found",
     405: "405 Method Not Allowed",
+    422: "422 Unprocessable Entity",
     500: "500 Internal Server Error",
 }
 

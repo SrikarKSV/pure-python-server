@@ -3,6 +3,8 @@ import re
 from pyproject.errors import ErrorResponse
 from pyproject.lib import render_template
 
+from .controllers import create_post
+
 
 # Build router for request method and give 403 is wrong
 def router(environ, response):
@@ -18,7 +20,7 @@ def router(environ, response):
             return render_template("edit-post.html", response, {"title": "Edit post"})
     elif HTTP_METHOD == "POST":
         if re.compile("^\/posts(\/)?$").match(URL):
-            return [b"New post created"]
+            return create_post(environ, response)
     else:
         errorMessage = f"{HTTP_METHOD} is not ALLOWED on {URL}"
         raise ErrorResponse(405, errorMessage)
