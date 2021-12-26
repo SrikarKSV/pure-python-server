@@ -3,7 +3,7 @@ import re
 from pyproject.errors import ErrorResponse
 from pyproject.lib import render_template
 
-from .controllers import create_post
+from .controllers import create_post, get_post
 
 
 # Build router for request method and give 403 is wrong
@@ -15,7 +15,7 @@ def router(environ, response):
         if re.compile("^\/posts(\/)?$").match(URL):
             return render_template("all-posts.html", response, {"title": "All posts"})
         if re.compile("^\/posts\/\d{1,}(\/)?$").match(URL):
-            return render_template("post.html", response, {"title": "Post"})
+            return get_post(environ, response)
         if re.compile("^\/posts\/edit\/\d{1,}(\/)?$").match(URL):
             return render_template("edit-post.html", response, {"title": "Edit post"})
     elif HTTP_METHOD == "POST":
