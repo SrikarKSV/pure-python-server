@@ -5,6 +5,8 @@ from wsgiref import util
 
 from jinja2 import Environment, FileSystemLoader
 
+from pyproject.error_handling import ErrorResponse
+
 from .utils import HTTP_MESSAGE
 
 
@@ -50,15 +52,4 @@ def render_template(file, response, context={}, status_code=200):
         response(HTTP_MESSAGE[status_code], [("Content-Type", "text/html")])
         return [bytes(html, "utf-8")]
     except Exception as error:
-        # Choose message based on mode
-        msg = (
-            error
-            if os.getenv("MODE") == "development"
-            else "We are facing some problems at the moment, come again later"
-        )
-        return render_template(
-            "error.html",
-            response,
-            {"error": "500 Server error", "msg": msg},
-            status_code=500,
-        )
+        raise ErrorResponse(500, error)
