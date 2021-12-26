@@ -1,4 +1,4 @@
-from .error_handling import ErrorResponse
+from .errors import ErrorResponse
 from .lib import route_url
 from .lib.serve_files import isRequestFile, serve_static_files
 from .main import router as home_router

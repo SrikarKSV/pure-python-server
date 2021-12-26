@@ -5,7 +5,7 @@ from wsgiref import util
 
 from jinja2 import Environment, FileSystemLoader
 
-from pyproject.error_handling import ErrorResponse
+from pyproject.errors import ErrorResponse
 
 from .utils import HTTP_MESSAGE
 

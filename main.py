@@ -4,7 +4,7 @@ from wsgiref import simple_server
 from dotenv import load_dotenv
 
 from pyproject import app
-from pyproject.error_handling.ExceptionMiddleware import ExceptionMiddleware
+from pyproject.errors.ExceptionMiddleware import ExceptionMiddleware
 
 if __name__ == "__main__":
     load_dotenv()  # Loads environment variables from .env file
