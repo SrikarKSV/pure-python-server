@@ -16,9 +16,9 @@ The goals of the project:
 
 ## Todos:
 
-- [ ] Create a routing system
+- [x] Create a routing system
 - [x] Use Jinja templating language to render html
-- [ ] Serve static files
+- [x] Serve static files
 - [ ] Parse both GET and POST requests form
 - [ ] Home page which shows all the articles
 - [ ] A form page to add new articles
