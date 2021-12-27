@@ -19,8 +19,8 @@ The goals of the project:
 - [x] Create a routing system
 - [x] Use Jinja templating language to render html
 - [x] Serve static files
-- [ ] Parse both GET and POST requests form
+- [x] Parse both GET and POST requests form
 - [ ] Home page which shows all the articles
-- [ ] A form page to add new articles
+- [x] A form page to add new articles
 - [ ] Use markdown for article content
 - [ ] Update and delete articles
