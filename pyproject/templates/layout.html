@@ -15,7 +15,7 @@
   <header>
     <h1><a href="/">PyProject</a></h1>
     <nav>
-      {% set nav_items = [{"title":"Write blog", "slug":"/new"}] %}
+      {% set nav_items = [{"title":"Write blog", "slug":"/new"}, {"title":"All posts", "slug":"/posts"}] %}
       <ul>
         {% for nav_item in nav_items %}
           <li><a href="{{ nav_item['slug'] }}">{{ nav_item["title"] }}</a></li>

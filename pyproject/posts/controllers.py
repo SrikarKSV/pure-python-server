@@ -1,7 +1,35 @@
 from pyproject.errors.ErrorResponse import ErrorResponse
-from pyproject.lib import parse_post_form, render_template
+from pyproject.lib import HTTP_MESSAGE, parse_get_form, parse_post_form, render_template
 from pyproject.models import Post, session
-from pyproject.lib import HTTP_MESSAGE
+
+
+def get_all_posts(environ, response):
+    total_posts = session.query(Post).count()
+    per_page = 5
+    query_strings = parse_get_form(environ)
+    page = int(query_strings.get("page", 1))
+    skip = per_page * (page - 1)
+    # If page exceeds total posts count then it's reset to 1
+    page = page if total_posts >= skip else 1
+    query = (
+        session.query(Post)
+        .order_by(Post.created_at.desc())
+        .limit(per_page)
+        .offset(skip)
+    )
+    posts = session.execute(query).scalars().all()
+
+    prev_page = page - 1 if page > 1 else None
+    next_page = page + 1 if skip + len(posts) < total_posts else None
+
+    context = {
+        "title": "All posts",
+        "posts": posts,
+        "prev_page": prev_page,
+        "next_page": next_page,
+    }
+
+    return render_template("all-posts.html", response, context)
 
 
 def create_post(environ, response):

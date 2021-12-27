@@ -2,4 +2,23 @@
 
 {% block content %}
   <h1>All posts</h1>
+  {% if posts|length >= 1 %}
+    {% for post in posts %}
+      <article>
+        <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
+        <p>{{ post.content }}</p>
+      </article>
+    {% endfor %}
+  {% else %}
+    <h2>No posts</h2>
+  {% endif %}
+
+  {% if prev_page %}
+    <button><a href="/posts?page={{ prev_page }}">Previous</a></button>
+  {% endif %}
+
+  {% if next_page %}
+    <button><a href="/posts?page={{ next_page }}">Next</a></button>
+  {% endif %}
+
 {% endblock %}
