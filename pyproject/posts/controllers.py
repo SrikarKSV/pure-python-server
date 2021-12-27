@@ -32,6 +32,15 @@ def get_all_posts(environ, response):
     return render_template("all-posts.html", response, context)
 
 
+def get_post(environ, response):
+    post_id = int(environ["PATH_INFO"].split("/")[-1])
+    post = session.query(Post).get(post_id)
+    if not post:
+        raise ErrorResponse(404, "Post not found")
+    context = {"title": post.title, "post": post}
+    return render_template("post.html", response, context)
+
+
 def create_post(environ, response):
     data = parse_post_form(environ)
     title = data.get("title", "")
@@ -45,10 +54,28 @@ def create_post(environ, response):
     return [b""]
 
 
-def get_post(environ, response):
-    id = int(environ["PATH_INFO"].split("/")[-1])
-    post = session.query(Post).get(id)
+def get_edit(environ, response):
+    post_id = int(environ["PATH_INFO"].split("/")[2])
+    post = session.query(Post).get(post_id)
     if not post:
         raise ErrorResponse(404, "Post not found")
-    context = {"title": post.title, "post": post}
-    return render_template("post.html", response, context)
+    context = {"title": "Edit post", "post": post}
+    return render_template("edit-post.html", response, context)
+
+
+def post_edit(environ, response):
+    data = parse_post_form(environ)
+    post_id = data.get("id", "")
+    title = data.get("title", "")
+    content = data.get("content", "")
+    if not title or not content:
+        raise ErrorResponse(422, "Fill both title and article body before submitting")
+    if not post_id:
+        raise ErrorResponse(422, "Id of the post not given")
+
+    post = session.query(Post).get(post_id)
+    post.title = title
+    post.content = content
+    session.commit()
+    response(HTTP_MESSAGE[303], [("Location", f"/posts/{post.id}")])
+    return [b""]

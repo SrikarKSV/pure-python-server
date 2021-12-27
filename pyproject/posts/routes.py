@@ -1,9 +1,8 @@
 import re
 
 from pyproject.errors import ErrorResponse
-from pyproject.lib import render_template
 
-from .controllers import create_post, get_all_posts, get_post
+from .controllers import create_post, get_all_posts, get_edit, get_post, post_edit
 
 
 # Build router for request method and give 403 is wrong
@@ -17,10 +16,12 @@ def router(environ, response):
         if re.compile("^\/posts\/\d{1,}(\/)?$").match(url):
             return get_post(environ, response)
         if re.compile("^\/posts\/\d{1,}\/edit(\/)?$").match(url):
-            return render_template("edit-post.html", response, {"title": "Edit post"})
+            return get_edit(environ, response)
     elif http_method == "POST":
         if re.compile("^\/posts(\/)?$").match(url):
             return create_post(environ, response)
+        if re.compile("^\/posts\/\d{1,}\/edit(\/)?$").match(url):
+            return post_edit(environ, response)
         if re.compile("^\/posts\/\d{1,}\/delete(\/)?$").match(url):
             return [b"Post deleted"]
     else:

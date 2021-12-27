@@ -15,7 +15,7 @@ def app(environ, response):
     if route_url(["^\/$", "\/new(\/)?"], url):
         return home_router(environ, response)
     if route_url(
-        ["^\/posts(\/)?$", "^\/posts\/\d{1,}(\/)?$", "^\/posts\/edit\/\d{1,}(\/)?$"],
+        ["^\/posts(\/)?$", "^\/posts\/\d{1,}(\/)?$", "^\/posts\/\d{1,}\/edit(\/)?$"],
         url,
     ):
         return posts_router(environ, response)

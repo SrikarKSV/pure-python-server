@@ -3,5 +3,6 @@
 {% block content %}
   <h1>{{ post.title }}</h1>
   <time>{{ post.created_at }}</time>
+  <button><a href="/posts/{{ post.id }}/edit">Edit</a></button>
   <p>{{ post.content }}</p>
 {% endblock content %}
