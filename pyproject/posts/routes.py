@@ -2,7 +2,14 @@ import re
 
 from pyproject.errors import ErrorResponse
 
-from .controllers import create_post, get_all_posts, get_edit, get_post, post_edit
+from .controllers import (
+    create_post,
+    delete_post,
+    get_all_posts,
+    get_edit,
+    get_post,
+    post_edit,
+)
 
 
 # Build router for request method and give 403 is wrong
@@ -23,7 +30,7 @@ def router(environ, response):
         if re.compile("^\/posts\/\d{1,}\/edit(\/)?$").match(url):
             return post_edit(environ, response)
         if re.compile("^\/posts\/\d{1,}\/delete(\/)?$").match(url):
-            return [b"Post deleted"]
+            return delete_post(environ, response)
     else:
         error_message = f"{http_method} is not ALLOWED on {url}"
         raise ErrorResponse(405, error_message)

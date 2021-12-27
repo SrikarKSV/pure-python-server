@@ -1,3 +1,4 @@
+import re
 from pyproject.errors.ErrorResponse import ErrorResponse
 from pyproject.lib import HTTP_MESSAGE, parse_get_form, parse_post_form, render_template
 from pyproject.models import Post, session
@@ -33,7 +34,11 @@ def get_all_posts(environ, response):
 
 
 def get_post(environ, response):
-    post_id = int(environ["PATH_INFO"].split("/")[-1])
+    post_id = int(
+        re.compile("^\/posts\/(?P<id>\d{1,})(\/)?$")
+        .search(environ["PATH_INFO"])
+        .groupdict()["id"]
+    )
     post = session.query(Post).get(post_id)
     if not post:
         raise ErrorResponse(404, "Post not found")
@@ -55,7 +60,11 @@ def create_post(environ, response):
 
 
 def get_edit(environ, response):
-    post_id = int(environ["PATH_INFO"].split("/")[2])
+    post_id = int(
+        re.compile("^\/posts\/(?P<id>\d{1,})\/edit(\/)?$")
+        .search(environ["PATH_INFO"])
+        .groupdict()["id"]
+    )
     post = session.query(Post).get(post_id)
     if not post:
         raise ErrorResponse(404, "Post not found")
@@ -78,4 +87,16 @@ def post_edit(environ, response):
     post.content = content
     session.commit()
     response(HTTP_MESSAGE[303], [("Location", f"/posts/{post.id}")])
+    return [b""]
+
+
+def delete_post(environ, response):
+    post_id = int(
+        re.compile("^\/posts\/(?P<id>\d{1,})\/delete(\/)?$")
+        .search(environ["PATH_INFO"])
+        .groupdict()["id"]
+    )
+    session.query(Post).filter(Post.id == post_id).delete(synchronize_session=False)
+    session.commit()
+    response(HTTP_MESSAGE[303], [("Location", "/posts")])
     return [b""]

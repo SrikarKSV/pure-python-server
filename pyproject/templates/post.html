@@ -4,5 +4,8 @@
   <h1>{{ post.title }}</h1>
   <time>{{ post.created_at }}</time>
   <button><a href="/posts/{{ post.id }}/edit">Edit</a></button>
+  <form action="/posts/{{ post.id }}/delete" method="POST">
+    <button>Delete</button>
+  </form>
   <p>{{ post.content }}</p>
 {% endblock content %}
