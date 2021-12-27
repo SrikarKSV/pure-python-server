@@ -13,6 +13,7 @@ def get_all_posts(environ, response):
     skip = per_page * (page - 1)
     # If page exceeds total posts count then it's reset to 1
     page = page if total_posts >= skip else 1
+    skip = per_page * (page - 1)
     query = (
         session.query(Post)
         .order_by(Post.created_at.desc())
