@@ -1,22 +1,22 @@
 from .errors import ErrorResponse
 from .lib import route_url
-from .lib.serve_files import isRequestFile, serve_static_files
+from .lib.serve_files import is_request_file, serve_static_files
 from .main import router as home_router
 from .posts import router as posts_router
 
 
 def app(environ, response):
     # Serve static file
-    if isRequestFile(environ):
+    if is_request_file(environ):
         return serve_static_files(environ, response)
 
-    URL = environ["PATH_INFO"]
-    print(URL)
-    if route_url(["^\/$", "\/new(\/)?"], URL):
+    url = environ["PATH_INFO"]
+
+    if route_url(["^\/$", "\/new(\/)?"], url):
         return home_router(environ, response)
     if route_url(
         ["^\/posts(\/)?$", "^\/posts\/\d{1,}(\/)?$", "^\/posts\/edit\/\d{1,}(\/)?$"],
-        URL,
+        url,
     ):
         return posts_router(environ, response)
     else:

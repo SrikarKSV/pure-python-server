@@ -10,7 +10,7 @@ from pyproject.errors import ErrorResponse
 from .utils import HTTP_MESSAGE
 
 
-def isRequestFile(environ):
+def is_request_file(environ):
     return bool(Path(environ["PATH_INFO"]).suffix)
 
 

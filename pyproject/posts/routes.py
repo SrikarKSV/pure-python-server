@@ -8,21 +8,21 @@ from .controllers import create_post, get_all_posts, get_post
 
 # Build router for request method and give 403 is wrong
 def router(environ, response):
-    URL = environ["PATH_INFO"]
-    HTTP_METHOD = environ["REQUEST_METHOD"].upper()
+    url = environ["PATH_INFO"]
+    http_method = environ["REQUEST_METHOD"].upper()
 
-    if HTTP_METHOD == "GET":
-        if re.compile("^\/posts(\/)?$").match(URL):
+    if http_method == "GET":
+        if re.compile("^\/posts(\/)?$").match(url):
             return get_all_posts(environ, response)
-        if re.compile("^\/posts\/\d{1,}(\/)?$").match(URL):
+        if re.compile("^\/posts\/\d{1,}(\/)?$").match(url):
             return get_post(environ, response)
-        if re.compile("^\/posts\/\d{1,}\/edit(\/)?$").match(URL):
+        if re.compile("^\/posts\/\d{1,}\/edit(\/)?$").match(url):
             return render_template("edit-post.html", response, {"title": "Edit post"})
-    elif HTTP_METHOD == "POST":
-        if re.compile("^\/posts(\/)?$").match(URL):
+    elif http_method == "POST":
+        if re.compile("^\/posts(\/)?$").match(url):
             return create_post(environ, response)
-        if re.compile("^\/posts\/\d{1,}\/delete(\/)?$").match(URL):
+        if re.compile("^\/posts\/\d{1,}\/delete(\/)?$").match(url):
             return [b"Post deleted"]
     else:
-        errorMessage = f"{HTTP_METHOD} is not ALLOWED on {URL}"
-        raise ErrorResponse(405, errorMessage)
+        error_message = f"{http_method} is not ALLOWED on {url}"
+        raise ErrorResponse(405, error_message)
