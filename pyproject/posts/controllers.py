@@ -1,4 +1,5 @@
 import re
+
 from pyproject.errors.ErrorResponse import ErrorResponse
 from pyproject.lib import HTTP_MESSAGE, parse_get_form, parse_post_form, render_template
 from pyproject.models import Post, session
@@ -42,6 +43,9 @@ def get_post(environ, response):
     post = session.query(Post).get(post_id)
     if not post:
         raise ErrorResponse(404, "Post not found")
+
+    post.view_count += 1
+    session.commit()
     context = {"title": post.title, "post": post}
     return render_template("post.html", response, context)
 
@@ -83,6 +87,9 @@ def post_edit(environ, response):
         raise ErrorResponse(422, "Id of the post not given")
 
     post = session.query(Post).get(post_id)
+    if not post:
+        raise ErrorResponse(404, "Post not found to edit")
+
     post.title = title
     post.content = content
     session.commit()

@@ -17,8 +17,9 @@ class Post(Base):
 
     id = Column(Integer, primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    view_count = Column(Integer, nullable=False, default=0)
     title = Column(String(100), nullable=False)
     content = Column(Text, nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.id}: {self.title}, '{self.date_posted}')"
+        return f"Post('{self.id}: {self.title}, '{self.created_at}')"
