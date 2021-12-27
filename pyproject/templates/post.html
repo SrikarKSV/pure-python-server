@@ -7,5 +7,5 @@
   <form action="/posts/{{ post.id }}/delete" method="POST">
     <button>Delete</button>
   </form>
-  <p>{{ post.content }}</p>
+  <p style="white-space: pre-wrap;">{{ post.content }}</p>
 {% endblock content %}

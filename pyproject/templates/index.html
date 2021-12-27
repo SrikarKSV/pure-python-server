@@ -3,10 +3,18 @@
 {% block content %}
   <h1>Welcome to PyProject</h1>
   <h2>Popular posts</h2>
-  {% for post in popular_posts %}
-    <article>
-      <h3><a href="/posts/{{ post.id }}">{{ post.title }}</a></h3>
-      <p>{{ post.content }}</p>
-    </article>
-  {% endfor %}
+  {% if popular_posts|length >= 1 %}
+    {% for post in popular_posts %}
+      <article>
+        <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
+        {% if post.content|length < 70 %}
+          <p>{{ post.content }}</p>
+        {% else %}
+          <p>{{ post.content[:70] }}...</p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  {% else %}
+    <h2>No posts</h2>
+  {% endif %}
 {% endblock %}

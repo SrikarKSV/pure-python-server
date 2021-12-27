@@ -6,7 +6,11 @@
     {% for post in posts %}
       <article>
         <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
-        <p>{{ post.content }}</p>
+        {% if post.content|length < 70 %}
+          <p>{{ post.content }}</p>
+        {% else %}
+          <p>{{ post.content[:70] }}...</p>
+        {% endif %}
       </article>
     {% endfor %}
   {% else %}
