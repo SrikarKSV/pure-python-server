@@ -2,6 +2,7 @@ import re
 
 from pyproject.errors import ErrorResponse
 from pyproject.lib import render_template
+from pyproject.main.controllers import get_popular_posts
 
 
 # Build router for request method and give 403 is wrong
@@ -11,7 +12,7 @@ def router(environ, response):
 
     if http_method == "GET":
         if re.compile("^\/$").match(url):
-            return render_template("index.html", response, {"title": "Home"})
+            return get_popular_posts(environ, response)
         if re.compile("\/new(\/)?").match(url):
             return render_template("new-post.html", response, {"title": "Write a post"})
     else:

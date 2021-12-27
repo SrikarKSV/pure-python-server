@@ -1,5 +1,12 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <h1>Coming soon</h1>
+  <h1>Welcome to PyProject</h1>
+  <h2>Popular posts</h2>
+  {% for post in popular_posts %}
+    <article>
+      <h3><a href="/posts/{{ post.id }}">{{ post.title }}</a></h3>
+      <p>{{ post.content }}</p>
+    </article>
+  {% endfor %}
 {% endblock %}
