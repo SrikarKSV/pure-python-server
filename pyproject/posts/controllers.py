@@ -64,7 +64,7 @@ def create_post(environ, response):
     sanitized_html = bleach.clean(
         html_content, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES, strip=True
     )
-    post = Post(title=title, content=sanitized_html)
+    post = Post(title=title, markdown=content, content=sanitized_html)
     session.add(post)
     session.commit()
     response(HTTP_MESSAGE[303], [("Location", f"/posts/{post.id}")])
@@ -103,6 +103,7 @@ def post_edit(environ, response):
         html_content, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES, strip=True
     )
     post.title = title
+    post.markdown = content
     post.content = sanitized_html
     session.commit()
     response(HTTP_MESSAGE[303], [("Location", f"/posts/{post.id}")])
