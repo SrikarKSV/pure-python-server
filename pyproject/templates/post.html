@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 
+{% block head_tags %}
+  <link rel="stylesheet" href="/css/markdown.css">
+{% endblock head_tags %}
+
 {% block content %}
   <h1>{{ post.title }}</h1>
   <time>{{ post.created_at }}</time>
@@ -7,5 +11,5 @@
   <form action="/posts/{{ post.id }}/delete" method="POST">
     <button>Delete</button>
   </form>
-  <p style="white-space: pre-wrap;">{{ post.content }}</p>
+  {{ post.content|safe }}
 {% endblock content %}

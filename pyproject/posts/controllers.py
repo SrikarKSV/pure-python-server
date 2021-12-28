@@ -1,7 +1,10 @@
 import re
 
+import bleach
+import markdown
 from pyproject.errors.ErrorResponse import ErrorResponse
 from pyproject.lib import HTTP_MESSAGE, parse_get_form, parse_post_form, render_template
+from pyproject.lib.utils import ALLOWED_ATTRIBUTES, ALLOWED_TAGS
 from pyproject.models import Post, session
 
 
@@ -57,7 +60,11 @@ def create_post(environ, response):
     content = data.get("content", "")
     if not title or not content:
         raise ErrorResponse(422, "Fill both title and article body before submitting")
-    post = Post(title=title, content=content)
+    html_content = markdown.markdown(content, extensions=["fenced_code", "codehilite"])
+    sanitized_html = bleach.clean(
+        html_content, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES, strip=True
+    )
+    post = Post(title=title, content=sanitized_html)
     session.add(post)
     session.commit()
     response(HTTP_MESSAGE[303], [("Location", f"/posts/{post.id}")])
@@ -91,8 +98,12 @@ def post_edit(environ, response):
     if not post:
         raise ErrorResponse(404, "Post not found to edit")
 
+    html_content = markdown.markdown(content, extensions=["fenced_code", "codehilite"])
+    sanitized_html = bleach.clean(
+        html_content, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES, strip=True
+    )
     post.title = title
-    post.content = content
+    post.content = sanitized_html
     session.commit()
     response(HTTP_MESSAGE[303], [("Location", f"/posts/{post.id}")])
     return [b""]

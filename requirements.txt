@@ -3,11 +3,13 @@ click==8.0.3
 colorama==0.4.4
 greenlet==1.1.2
 Jinja2==3.0.3
+Markdown==3.3.6
 MarkupSafe==2.0.1
 mypy-extensions==0.4.3
 pathspec==0.9.0
 platformdirs==2.4.0
+Pygments==2.10.0
 python-dotenv==0.19.2
 SQLAlchemy==1.4.29
 tomli==1.2.3
-typing-extensions==4.0.1
+typing_extensions==4.0.1
