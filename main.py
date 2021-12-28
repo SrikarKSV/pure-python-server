@@ -7,12 +7,13 @@ from pyproject import app
 from pyproject.db import db_init
 from pyproject.errors.ExceptionMiddleware import ExceptionMiddleware
 
-if __name__ == "__main__":
-    load_dotenv()  # Loads environment variables from .env file
+load_dotenv()  # Loads environment variables from .env file
+db_init()  # Initialize DB session
 
+app = ExceptionMiddleware(app)
+
+if __name__ == "__main__":
     PORT = int(os.getenv("PORT", 3000))
-    db_init()  # Initialize DB session
-    app = ExceptionMiddleware(app)
     httpd = simple_server.make_server("", PORT, app)
     print(f"✅ Listening on http://localhost:{PORT}")
     try:
