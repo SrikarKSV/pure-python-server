@@ -3,13 +3,14 @@ import re
 import bleach
 import markdown
 
+from ..db import Post, create_session
 from ..errors.ErrorResponse import ErrorResponse
 from ..lib import HTTP_MESSAGE, parse_get_form, parse_post_form, render_template
 from ..lib.utils import ALLOWED_ATTRIBUTES, ALLOWED_TAGS
-from ..models import Post, session
 
 
 def get_all_posts(environ, response):
+    session = create_session()
     total_posts = session.query(Post).count()
     per_page = 5
     query_strings = parse_get_form(environ)
@@ -51,6 +52,7 @@ def get_post(environ, response):
     except:
         raise ErrorResponse(400, "There was an error when parsing article id")
 
+    session = create_session()
     post = session.query(Post).get(post_id)
     if not post:
         raise ErrorResponse(404, "Post not found")
@@ -69,6 +71,7 @@ def create_post(environ, response):
     if not title or not content:
         raise ErrorResponse(422, "Fill both title and article body before submitting")
 
+    session = create_session()
     # Convert HTML to markdown and sanitize
     html_content = markdown.markdown(content, extensions=["fenced_code", "codehilite"])
     sanitized_html = bleach.clean(
@@ -92,6 +95,7 @@ def get_edit(environ, response):
     except:
         raise ErrorResponse(400, "There was an error when parsing article id")
 
+    session = create_session()
     post = session.query(Post).get(post_id)
     if not post:
         raise ErrorResponse(404, "Post not found")
@@ -109,6 +113,7 @@ def post_edit(environ, response):
     if not post_id:
         raise ErrorResponse(422, "Id of the post not given")
 
+    session = create_session()
     post = session.query(Post).get(post_id)
     if not post:
         raise ErrorResponse(404, "Post not found to edit")
@@ -133,6 +138,7 @@ def delete_post(environ, response):
         .search(environ["PATH_INFO"])
         .groupdict()["id"]
     )
+    session = create_session()
     session.query(Post).filter(Post.id == post_id).delete(synchronize_session=False)
     session.commit()
     # Redirect to /posts

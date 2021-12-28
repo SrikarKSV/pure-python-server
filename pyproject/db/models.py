@@ -1,18 +1,11 @@
-import os
 from datetime import datetime
 
-from sqlalchemy import Column, DateTime, Integer, String, Text, create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import Column, DateTime, Integer, String, Text
 
-engine = create_engine(os.getenv("DATABASE_URI", "sqlite:///posts.db"), echo=False)
-Session = sessionmaker(bind=engine)
-session = Session()
-
-Base = declarative_base()
+from .modelbase import SqlAlchemyBase
 
 
-class Post(Base):
+class Post(SqlAlchemyBase):
     __tablename__ = "posts"
 
     id = Column(Integer, primary_key=True)

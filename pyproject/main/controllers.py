@@ -1,10 +1,11 @@
 import datetime
 
+from ..db import Post, create_session
 from ..lib.serve_files import render_template
-from ..models import Post, session
 
 
 def get_popular_posts(environ, response):
+    session = create_session()
     today = datetime.datetime.utcnow()
     week_ago = today - datetime.timedelta(days=7)
     # Get most viewed posts in last 7 days
