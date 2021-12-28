@@ -13,7 +13,10 @@ def get_all_posts(environ, response):
     total_posts = session.query(Post).count()
     per_page = 5
     query_strings = parse_get_form(environ)
-    page = int(query_strings.get("page", 1))
+    try:
+        page = int(query_strings.get("page", 1))
+    except:
+        page = 1
     skip = per_page * (page - 1)
     # If page exceeds total posts count then it's reset to 1
     page = page if total_posts >= skip else 1
@@ -39,11 +42,15 @@ def get_all_posts(environ, response):
 
 
 def get_post(environ, response):
-    post_id = int(
-        re.compile("^\/posts\/(?P<id>\d{1,})(\/)?$")
-        .search(environ["PATH_INFO"])
-        .groupdict()["id"]
-    )
+    try:
+        post_id = int(
+            re.compile("^\/posts\/(?P<id>\d{1,})(\/)?$")
+            .search(environ["PATH_INFO"])
+            .groupdict()["id"]
+        )
+    except:
+        raise ErrorResponse(400, "There was an error when parsing article id")
+
     post = session.query(Post).get(post_id)
     if not post:
         raise ErrorResponse(404, "Post not found")
@@ -76,11 +83,15 @@ def create_post(environ, response):
 
 
 def get_edit(environ, response):
-    post_id = int(
-        re.compile("^\/posts\/(?P<id>\d{1,})\/edit(\/)?$")
-        .search(environ["PATH_INFO"])
-        .groupdict()["id"]
-    )
+    try:
+        post_id = int(
+            re.compile("^\/posts\/(?P<id>\d{1,})\/edit(\/)?$")
+            .search(environ["PATH_INFO"])
+            .groupdict()["id"]
+        )
+    except:
+        raise ErrorResponse(400, "There was an error when parsing article id")
+
     post = session.query(Post).get(post_id)
     if not post:
         raise ErrorResponse(404, "Post not found")
