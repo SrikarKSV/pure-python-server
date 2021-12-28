@@ -17,12 +17,12 @@ def serve_static_files(environ, response):
     """
     Responds with a static file if found, else gives 404
 
-            Parameters:
-                    environ (dict): Dictionary filled with request details (Given by WSGI)
-                    response (function): Function given by WSGI, to respond
+        Parameters:
+            environ (dict): Dictionary filled with request details (Given by WSGI)
+            response (function): Function given by WSGI, to respond
 
-            Returns:
-                    static_file (List[bytes]): Static file, if found converted to iterable bytes
+        Returns:
+            static_file (List[bytes]): Static file, if found converted to iterable bytes
     """
     static_file = (
         Path.resolve(Path.cwd())
@@ -60,14 +60,14 @@ def render_template(file: str, response, context: dict = {}, status_code: int = 
     """
     Accepts jinja file and returns the template
 
-            Parameters:
-                    file (str): Name of the Jinja file, inside templates folder
-                    response (function): Function given by WSGI
-                    context (dict): Dict filled with variables to embed in template
-                    status_code (int): HTTP status code, to respond
+        Parameters:
+            file (str): Name of the Jinja file, inside templates folder
+            response (function): Function given by WSGI
+            context (dict): Dict filled with variables to embed in template
+            status_code (int): HTTP status code, to respond
 
-            Returns:
-                    template (List[bytes]): Template filled with data converted to iterable bytes
+        Returns:
+            template (List[bytes]): Template filled with data converted to iterable bytes
     """
     try:
         templates_directory = Path.cwd() / "pyproject" / "templates"
