@@ -20,7 +20,8 @@ The goals of the project:
 - [x] Use Jinja templating language to render html
 - [x] Serve static files
 - [x] Parse both GET and POST requests form
-- [ ] Home page which shows all the articles
+- [x] A page which shows all the articles
 - [x] A form page to add new articles
-- [ ] Use markdown for article content
-- [ ] Update and delete articles
+- [x] Use markdown for article content
+- [x] Update and delete articles
+- [ ] Style with CSS
