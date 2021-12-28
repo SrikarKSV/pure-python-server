@@ -1,3 +1,5 @@
+import datetime
+import email
 import mimetypes
 import os
 from pathlib import Path
@@ -15,7 +17,7 @@ def is_request_file(environ):
 
 def serve_static_files(environ, response):
     """
-    Responds with a static file if found, else gives 404
+    Responds with a static file if found 0r 304 Not Modified, else gives 404
 
         Parameters:
             environ (dict): Dictionary filled with request details (Given by WSGI)
@@ -42,10 +44,51 @@ def serve_static_files(environ, response):
         return [b"405 Method Not Allowed"]
 
     try:
-        file_type = mimetypes.guess_type(static_file.name)[0] or "text/plain"
-        response(HTTP_MESSAGE[200], [("Content-Type", file_type)])
-        return util.FileWrapper(open(static_file, "rb"))
+        f = open(static_file, "rb")
+        file_type = mimetypes.guess_type(f.name)[0] or "text/plain"
+        fs = os.fstat(f.fileno())
+        # Use browser cache if possible
+        if (
+            "HTTP_IF_MODIFIED_SINCE" in environ.keys()
+            and "HTTP_IF_NONE_MATCH" not in environ.keys()
+        ):
+            # compare If-Modified-Since and time of last file modification
+            try:
+                if_modified_since = email.utils.parsedate_to_datetime(
+                    environ["HTTP_IF_MODIFIED_SINCE"]
+                )
+            except (TypeError, IndexError, OverflowError, ValueError):
+                # ignore ill-formed values
+                pass
+            else:
+                if if_modified_since.tzinfo is None:
+                    # obsolete format with no timezone, cf.
+                    # https://datatracker.ietf.org/doc/html/rfc7231#section-7.1.1.1
+                    if_modified_since = if_modified_since.replace(
+                        tzinfo=datetime.timezone.utc
+                    )
+                if if_modified_since.tzinfo is datetime.timezone.utc:
+                    # compare to UTC datetime of last modification
+                    last_modif = datetime.datetime.fromtimestamp(
+                        fs.st_mtime, datetime.timezone.utc
+                    )
+                    # remove microseconds, like in If-Modified-Since
+                    last_modif = last_modif.replace(microsecond=0)
+                    if last_modif <= if_modified_since:
+                        f.close()
+                        response(HTTP_MESSAGE[304], [("Content-Type", "text/plain")])
+                        return [b""]
+        response(
+            HTTP_MESSAGE[200],
+            [
+                ("Content-Type", file_type),
+                ("Content-Length", str(fs[6])),
+                ("Last-Modified", email.utils.formatdate(fs.st_mtime, usegmt=True)),
+            ],
+        )
+        return util.FileWrapper(f)
     except Exception as error:
+        f.close()
         msg = (
             error
             if os.getenv("MODE") == "development"

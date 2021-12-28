@@ -3,6 +3,7 @@ import re
 HTTP_MESSAGE = {
     200: "200 OK",
     303: "303 See Other",
+    304: "304 Not Modified",
     404: "404 Not Found",
     405: "405 Method Not Allowed",
     422: "422 Unprocessable Entity",
