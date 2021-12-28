@@ -5,8 +5,7 @@ from wsgiref import util
 
 from jinja2 import Environment, FileSystemLoader
 
-from pyproject.errors import ErrorResponse
-
+from ..errors import ErrorResponse
 from .utils import HTTP_MESSAGE
 
 
@@ -15,6 +14,16 @@ def is_request_file(environ):
 
 
 def serve_static_files(environ, response):
+    """
+    Responds with a static file if found, else gives 404
+
+            Parameters:
+                    environ (dict): Dictionary filled with request details (Given by WSGI)
+                    response (function): Function given by WSGI, to respond
+
+            Returns:
+                    static_file (List[bytes]): Static file, if found converted to iterable bytes
+    """
     static_file = (
         Path.resolve(Path.cwd())
         / "pyproject"
@@ -47,7 +56,19 @@ def serve_static_files(environ, response):
         return [bytes(res, "utf-8")]
 
 
-def render_template(file, response, context={}, status_code=200):
+def render_template(file: str, response, context: dict = {}, status_code: int = 200):
+    """
+    Accepts jinja file and returns the template
+
+            Parameters:
+                    file (str): Name of the Jinja file, inside templates folder
+                    response (function): Function given by WSGI
+                    context (dict): Dict filled with variables to embed in template
+                    status_code (int): HTTP status code, to respond
+
+            Returns:
+                    template (List[bytes]): Template filled with data converted to iterable bytes
+    """
     try:
         templates_directory = Path.cwd() / "pyproject" / "templates"
         template = Environment(

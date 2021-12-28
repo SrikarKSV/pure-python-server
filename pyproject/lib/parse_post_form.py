@@ -9,8 +9,8 @@ def parse_post_form(environ):
         request_body_size = 0
 
     # When the method is POST the variable will be sent
-    # in the HTTP request body which is passed by the WSGI server
-    # in the file like wsgi.input environment variable.
+    # In the HTTP request body which is passed by the WSGI server
+    # Is present wsgi.input environment variable.
     request_body = environ["wsgi.input"].read(request_body_size).decode("utf-8")
     data = parse_qs(request_body)
 

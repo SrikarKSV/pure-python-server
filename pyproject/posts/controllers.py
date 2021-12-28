@@ -2,10 +2,11 @@ import re
 
 import bleach
 import markdown
-from pyproject.errors.ErrorResponse import ErrorResponse
-from pyproject.lib import HTTP_MESSAGE, parse_get_form, parse_post_form, render_template
-from pyproject.lib.utils import ALLOWED_ATTRIBUTES, ALLOWED_TAGS
-from pyproject.models import Post, session
+
+from ..errors.ErrorResponse import ErrorResponse
+from ..lib import HTTP_MESSAGE, parse_get_form, parse_post_form, render_template
+from ..lib.utils import ALLOWED_ATTRIBUTES, ALLOWED_TAGS
+from ..models import Post, session
 
 
 def get_all_posts(environ, response):
@@ -34,7 +35,6 @@ def get_all_posts(environ, response):
         "prev_page": prev_page,
         "next_page": next_page,
     }
-
     return render_template("all-posts.html", response, context)
 
 
@@ -48,6 +48,7 @@ def get_post(environ, response):
     if not post:
         raise ErrorResponse(404, "Post not found")
 
+    # Increment view count by 1
     post.view_count += 1
     session.commit()
     context = {"title": post.title, "post": post}
@@ -60,6 +61,8 @@ def create_post(environ, response):
     content = data.get("content", "")
     if not title or not content:
         raise ErrorResponse(422, "Fill both title and article body before submitting")
+
+    # Convert HTML to markdown and sanitize
     html_content = markdown.markdown(content, extensions=["fenced_code", "codehilite"])
     sanitized_html = bleach.clean(
         html_content, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES, strip=True
@@ -67,6 +70,7 @@ def create_post(environ, response):
     post = Post(title=title, markdown=content, content=sanitized_html)
     session.add(post)
     session.commit()
+    # Redirect to /posts/id
     response(HTTP_MESSAGE[303], [("Location", f"/posts/{post.id}")])
     return [b""]
 
@@ -98,6 +102,7 @@ def post_edit(environ, response):
     if not post:
         raise ErrorResponse(404, "Post not found to edit")
 
+    # Convert HTML to markdown and sanitize
     html_content = markdown.markdown(content, extensions=["fenced_code", "codehilite"])
     sanitized_html = bleach.clean(
         html_content, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES, strip=True
@@ -106,6 +111,7 @@ def post_edit(environ, response):
     post.markdown = content
     post.content = sanitized_html
     session.commit()
+    # Redirect to /posts/id
     response(HTTP_MESSAGE[303], [("Location", f"/posts/{post.id}")])
     return [b""]
 
@@ -118,5 +124,6 @@ def delete_post(environ, response):
     )
     session.query(Post).filter(Post.id == post_id).delete(synchronize_session=False)
     session.commit()
+    # Redirect to /posts
     response(HTTP_MESSAGE[303], [("Location", "/posts")])
     return [b""]

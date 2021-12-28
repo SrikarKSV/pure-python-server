@@ -12,7 +12,7 @@ def app(environ, response):
 
     url = environ["PATH_INFO"]
 
-    if route_url(["^\/$", "\/new(\/)?"], url):
+    if route_url(["^\/$", "\/new(\/)?"], url):  # Accepts ['/', '/new']
         return home_router(environ, response)
     if route_url(
         [
@@ -22,8 +22,9 @@ def app(environ, response):
             "^\/posts\/\d{1,}\/delete(\/)?$",
         ],
         url,
-    ):
+    ):  # Accepts ['/posts', '/posts/id', '/posts/id/edit', '/posts/id/delete']
         return posts_router(environ, response)
     else:
+        # If noting matched then show 404
         message = f"The requested URL {environ['PATH_INFO']} was not found!"
         raise ErrorResponse(404, message)

@@ -1,10 +1,11 @@
 import os
 import traceback
 
-from pyproject.lib import render_template
+from ..lib import render_template
 
 
 def global_error_handler(error, response):
+    """A global error handler, which directs the error based on mode"""
     # Assigning status code to exception objects
     try:
         error.status_code = error.status_code
@@ -18,6 +19,7 @@ def global_error_handler(error, response):
 
 
 def sendDevError(error, response):
+    """An error handler for development mode, sends the traceback along with response"""
     # Getting traceback from exception
     stack = "".join(traceback.TracebackException.from_exception(error).format())
     context = {
@@ -33,6 +35,8 @@ def sendDevError(error, response):
 
 
 def sendProdError(error, response):
+    """An error handler for production mode"""
+
     context = {
         "title": f"{error.status_code} Error",
         "status": error.status_code,

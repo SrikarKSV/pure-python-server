@@ -1,5 +1,4 @@
 from urllib.parse import parse_qs
-from html import escape
 
 
 def parse_get_form(environ):
@@ -7,10 +6,8 @@ def parse_get_form(environ):
     query_string = parse_qs(environ["QUERY_STRING"])
 
     # Clean the dict
-    for key, value in query_string.items():
-        if len(value) == 1:
-            query_string[key] = value[0]
+    decoded_query_string = {
+        key: value[0] for key, value in query_string.items() if len(value) == 1
+    }
 
-        query_string[key] = escape(query_string[key])
-
-    return query_string
+    return decoded_query_string

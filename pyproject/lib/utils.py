@@ -9,6 +9,7 @@ HTTP_MESSAGE = {
     500: "500 Internal Server Error",
 }
 
+# Tags allowed in markdown to HTML
 ALLOWED_TAGS = [
     "ul",
     "ol",
@@ -33,6 +34,7 @@ ALLOWED_TAGS = [
     "span",
 ]
 
+# Attributes allowed in markdown to HTML
 ALLOWED_ATTRIBUTES = {
     "a": ["href", "title"],
     "img": ["src", "title", "alt"],
@@ -42,7 +44,7 @@ ALLOWED_ATTRIBUTES = {
     "td": ["class"],
 }
 
-
+# Checks if any regex matches with given URL
 def route_url(regexes, url):
     matches = [bool(re.compile(regex).match(url)) for regex in regexes]
     return any(matches)
