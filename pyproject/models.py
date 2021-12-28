@@ -20,6 +20,7 @@ class Post(Base):
     view_count = Column(Integer, nullable=False, default=0)
     title = Column(String(100), nullable=False)
     content = Column(Text, nullable=False)
+    markdown = Column(Text, nullable=False)
 
     def __repr__(self):
         return f"Post('{self.id}: {self.title}, '{self.created_at}')"
