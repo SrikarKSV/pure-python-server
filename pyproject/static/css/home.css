@@ -176,6 +176,42 @@ textarea {
   height: 30rem;
 }
 
+/********************* Footer *********************/
+
+footer::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 3px;
+  top: -15px;
+  background: var(--gradient-text);
+}
+
+footer {
+  position: relative;
+  margin-top: 4rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+footer p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+footer .socials {
+  display: flex;
+}
+
+footer .socials img {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+  filter: invert(100%);
+}
+
 /********************* Errors *********************/
 
 .error-msg {
