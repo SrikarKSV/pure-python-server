@@ -19,6 +19,10 @@
       </article>
     {% endfor %}
   {% else %}
-    <h2>No posts</h2>
+    {% if heading == "h4" %}
+      <h4 class="no-posts">No posts</h4>
+    {% elif heading == "h3" %}
+      <h3 class="no-posts">No posts</h3>
+    {% endif %}
   {% endif %}
 {%- endmacro %}
