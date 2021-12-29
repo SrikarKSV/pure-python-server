@@ -23,6 +23,10 @@
   --border-radius-sm: 3px;
 }
 
+.heading {
+  color: var(--heading-color);
+}
+
 html {
   font-size: 100%;
 } /*16px*/
