@@ -16,11 +16,17 @@ def db_init():
     if __factory:
         return
 
-    engine = create_engine(
-        os.getenv("DATABASE_URI", "sqlite:///posts.db"),
-        echo=False,
-        connect_args={"check_same_thread": False},
-    )
+    database_uri = os.getenv("DATABASE_URI", "sqlite:///posts.db")
+
+    if database_uri.startswith("sqlite"):
+        engine = create_engine(
+            database_uri,
+            echo=False,
+            connect_args={"check_same_thread": False},
+        )
+    else:
+        engine = create_engine(database_uri, echo=False)
+
     __factory = sessionmaker(bind=engine)
     print("📈 Successfully connected to DB")
 
