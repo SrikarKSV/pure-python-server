@@ -2,10 +2,15 @@
   {% if posts|length >= 1 %}
     {% for post in posts %}
       <article class="post">
+        {% if post.title|length < 60 %}
+          {% set title = post.title %}
+        {% else %}
+          {% set title = post.title[:60] + "..." %}
+        {% endif %}
         {% if heading == "h4" %}
-          <h4><a href="/posts/{{ post.id }}">{{ post.title }}</a></h4>
+          <h4><a href="/posts/{{ post.id }}">{{ title }}</a></h4>
         {% elif heading == "h3" %}
-          <h3><a href="/posts/{{ post.id }}">{{ post.title }}</a></h3>
+          <h3><a href="/posts/{{ post.id }}">{{ title }}</a></h3>
         {% endif %}
         {% if show_views %}
           <span class="view-count">{{ post.view_count }} views</span>
