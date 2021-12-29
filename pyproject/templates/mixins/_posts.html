@@ -1,4 +1,4 @@
-{% macro posts(posts, heading) -%}
+{% macro posts(posts, heading, show_views=False) -%}
   {% if posts|length >= 1 %}
     {% for post in posts %}
       <article class="post">
@@ -7,7 +7,9 @@
         {% elif heading == "h3" %}
           <h3><a href="/posts/{{ post.id }}">{{ post.title }}</a></h3>
         {% endif %}
-        <span class="view-count">{{ post.view_count }} views</span>
+        {% if show_views %}
+          <span class="view-count">{{ post.view_count }} views</span>
+        {% endif %}
         <span class="posted-at">Posted <time datetime="post.created_at">{{ pretty_date(post.created_at) }}</time></span>
       </article>
     {% endfor %}
