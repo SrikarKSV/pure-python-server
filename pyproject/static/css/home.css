@@ -115,19 +115,22 @@ nav a {
 }
 
 .post h4 {
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   margin: 0.5rem 0 1rem;
 }
 
 .post h3 {
-  font-size: 2.8rem;
+  font-size: 2.6rem;
   margin: 0.5rem 0 1rem;
 }
 
 .view-count,
 .posted-at {
-  padding: 0.4em 0.3em;
+  display: inline-block;
+  padding: 0.1em 0.3em;
   border-radius: var(--border-radius-sm);
+  white-space: nowrap;
+  margin-top: 3px;
 }
 
 .view-count {
@@ -175,6 +178,17 @@ textarea {
 
 /********************* Errors *********************/
 
+.error-msg {
+  font-size: 1.4rem;
+}
+
+.error-stack {
+  border: 3px solid var(--white);
+  padding: 0.5em;
+  overflow-x: scroll;
+}
+
+/********************* Media queries *********************/
 @media only screen and (max-width: 71.875em) {
   /* 1150px */
   .container {
@@ -188,6 +202,19 @@ textarea {
     flex-direction: column;
   }
 
+  .greeting h2 {
+    font-size: 3.5rem;
+  }
+
+  .greeting p {
+    font-size: 1.1rem;
+    max-width: 80vw;
+  }
+
+  nav a {
+    font-size: 1.2rem;
+  }
+
   nav {
     margin-top: 10px;
   }
@@ -195,5 +222,32 @@ textarea {
   nav li:nth-child(2) {
     margin-right: 0;
     padding: 0.2em 0.6em;
+  }
+
+  .popular-posts-border {
+    min-width: 100%;
+  }
+
+  .heading {
+    font-size: 2.5rem;
+  }
+
+  .popular-posts h4 {
+    font-size: 1.8rem;
+  }
+
+  .post h3 {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 37.5em) {
+  /* 600px */
+  .popular-posts {
+    padding: 1em 0.4em;
+  }
+
+  .post h3 {
+    font-size: 1.8rem;
   }
 }

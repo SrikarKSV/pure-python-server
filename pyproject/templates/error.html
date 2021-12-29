@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <h1>{{ status }}</h1>
-  <p>{{ msg }}</p>
-  <pre>{{ stack }}</pre>
+  <h2 class="heading">{{ status }} error</h2>
+  <p class="error-msg">{{ msg }}</p>
+  <pre class="error-stack">{{ stack }}</pre>
 {% endblock content %}
