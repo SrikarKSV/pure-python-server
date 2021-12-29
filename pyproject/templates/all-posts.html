@@ -1,22 +1,9 @@
 {% extends "layout.html" %}
+{% from "mixins/_posts.html" import posts as all_posts %}
 
 {% block content %}
-  <h1>All posts</h1>
-  {% if posts|length >= 1 %}
-    {% for post in posts %}
-      <article>
-        <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
-        <time>Posted {{ pretty_date(post.created_at) }}</time>
-        {% if post.content|length < 70 %}
-          <p>{{ post.content }}</p>
-        {% else %}
-          <p>{{ post.content[:70] }}...</p>
-        {% endif %}
-      </article>
-    {% endfor %}
-  {% else %}
-    <h2>No posts</h2>
-  {% endif %}
+  <h2>All posts</h2>
+  {{ all_posts(posts, "h3") }}
 
   {% if prev_page %}
     <button><a href="/posts?page={{ prev_page }}">Previous</a></button>
