@@ -1,11 +1,9 @@
 {% extends "layout.html" %}
+{% from "mixins/_post-form.html" import post_form %}
 
 {% block content %}
+  <h2 class="heading">Create post</h2>
   <form action="/posts/" method="POST">
-    <label for="title">Title</label>
-    <input type="text" name="title" id="title">
-    <label for="content">Article content</label>
-    <textarea name="content" id="content" cols="100" rows="50"></textarea>
-    <button>Post</button>
+    {{ post_form(button_text="Post") }}
   </form>
 {% endblock %}

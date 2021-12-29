@@ -1,0 +1,19 @@
+{% macro post_form(button_text, title="", content="", post_id="") -%}
+  <label for="title">Title</label>
+  <input type="text" name="title" id="title" value="{{ title }}">
+  <label for="content">Article content <small class="grey-text">(Enter markdown)</small></label>
+
+  {% if content %}
+    <textarea name="content" id="content">{{ content }}</textarea>
+  {% else %}
+    <textarea name="content" id="content">
+# Why did the angry function exceed the callstack size?
+It got into an Argument with itself</textarea>
+  {% endif %}
+
+  {% if post_id %}
+    <input type="hidden" name="id" value="{{ post_id }}">
+  {% endif %}
+
+  <button class="btn btn-lg btn-green">{{ button_text }}</button>
+{%- endmacro %}

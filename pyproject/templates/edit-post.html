@@ -1,12 +1,9 @@
 {% extends "layout.html" %}
+{% from "mixins/_post-form.html" import post_form %}
 
 {% block content %}
+  <h2 class="heading">Edit post</h2>
   <form action="/posts/{{ post.id }}/edit" method="POST">
-    <label for="title">Title</label>
-    <input type="text" name="title" id="title" value="{{ post.title }}">
-    <label for="content">Article content</label>
-    <textarea name="content" id="content" cols="100" rows="50">{{ post.markdown }}</textarea>
-    <input type="hidden" name="id" value="{{ post.id }}">
-    <button>Post</button>
+    {{ post_form(button_text="Edit post", title=post.title, content=post.markdown, post_id=post.id) }}
   </form>
 {% endblock %}

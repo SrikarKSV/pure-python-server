@@ -69,7 +69,7 @@ nav a {
 
 .greeting p {
   font-size: 1.5rem;
-  color: #b2becd;
+  color: var(--grey-text);
   max-width: 60vw;
   margin: auto;
 }
@@ -82,7 +82,7 @@ nav a {
 
 .popular-posts-border {
   padding: 2px;
-  max-width: 70%;
+  max-width: 80%;
   margin: auto;
   background: var(--gradient-text);
   border-radius: var(--border-radius-sm);
@@ -133,6 +133,37 @@ nav a {
   font-size: 3rem;
   margin: 0.5rem 0 1rem;
 }
+
+/********************* Forms *********************/
+
+label {
+  display: block;
+  font-size: 2rem;
+}
+
+input,
+textarea {
+  border: none;
+  border-radius: var(--border-radius-sm);
+}
+
+input,
+textarea {
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 0.2em 0.5em;
+}
+
+input {
+  margin-bottom: 2rem;
+}
+
+textarea {
+  resize: vertical;
+  height: 10rem;
+}
+
+/********************* Errors *********************/
 
 @media only screen and (max-width: 71.875em) {
   /* 1150px */
