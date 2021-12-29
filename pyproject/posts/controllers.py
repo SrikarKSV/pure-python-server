@@ -73,7 +73,9 @@ def create_post(environ, response):
 
     session = create_session()
     # Convert HTML to markdown and sanitize
-    html_content = markdown.markdown(content, extensions=["fenced_code", "codehilite"])
+    html_content = markdown.markdown(
+        content, extensions=["fenced_code", "codehilite", "tables", "abbr"]
+    )
     sanitized_html = bleach.clean(
         html_content, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES, strip=True
     )

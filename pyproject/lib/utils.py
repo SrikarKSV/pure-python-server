@@ -85,6 +85,12 @@ ALLOWED_TAGS = [
     "img",
     "div",
     "span",
+    "table",
+    "thead",
+    "tbody",
+    "tr",
+    "th",
+    "td",
 ]
 
 # Attributes allowed in markdown to HTML
