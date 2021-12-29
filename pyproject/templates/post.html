@@ -5,11 +5,15 @@
 {% endblock head_tags %}
 
 {% block content %}
-  <h1>{{ post.title }}</h1>
-  <time>Posted {{ pretty_date(post.created_at) }}</time>
-  <button><a href="/posts/{{ post.id }}/edit">Edit</a></button>
-  <form action="/posts/{{ post.id }}/delete" method="POST">
-    <button>Delete</button>
-  </form>
-  {{ post.content|safe }}
+  <div class="markdown">
+    <h2 class="heading markdown-heading">{{ post.title }}</h2>
+    <time class="posted-at">Posted {{ pretty_date(post.created_at) }}</time>
+    <div class="post-controls">
+      <button class="btn btn-inline-block btn-edit"><a href="/posts/{{ post.id }}/edit">Edit</a></button>
+      <form action="/posts/{{ post.id }}/delete" method="POST">
+        <button class="btn btn-inline-block btn-delete">Delete</button>
+      </form>
+    </div>
+    {{ post.content|safe }}
+  </div>
 {% endblock content %}
