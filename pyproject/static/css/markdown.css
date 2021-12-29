@@ -116,6 +116,24 @@
   background: var(--black);
 }
 
+@media only screen and (max-width: 53.125em) {
+  /* 850px */
+  .markdown {
+    max-width: 90%;
+  }
+
+  .markdown .markdown-heading {
+    font-size: 2.1rem;
+  }
+}
+
+@media only screen and (max-width: 37.5em) {
+  /* 600px */
+  .markdown {
+    max-width: 100%;
+  }
+}
+
 pre > code {
   padding: 10px;
   display: block;
