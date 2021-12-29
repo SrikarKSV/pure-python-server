@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+  {# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"> #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+        rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
   {% if title %}
     <title>{{ title }} — PyProject</title>
   {% else %}
@@ -12,11 +18,12 @@
   {% endif %}
   {% block head_tags %}{% endblock head_tags %}
 </head>
-<body>
+
+<body class="container">
   <header>
-    <h1><a href="/">PyProject</a></h1>
+    <h1 class="gradient-text"><a href="/">PyProject</a></h1>
     <nav>
-      {% set nav_items = [{"title":"Write blog", "slug":"/new"}, {"title":"All posts", "slug":"/posts"}] %}
+      {% set nav_items = [{"title": "All posts", "slug": "/posts"}, {"title": "Create post", "slug": "/new"}] %}
       <ul>
         {% for nav_item in nav_items %}
           <li><a href="{{ nav_item['slug'] }}">{{ nav_item["title"] }}</a></li>
@@ -32,4 +39,5 @@
 
   <footer><p>Made with ❤️ by Srikar</p></footer>
 </body>
+
 </html>

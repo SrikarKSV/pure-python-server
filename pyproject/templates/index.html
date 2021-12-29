@@ -1,20 +1,19 @@
 {% extends "layout.html" %}
+{% from "mixins/_posts.html" import posts %}
 
 {% block content %}
-  <h1>Welcome to PyProject</h1>
-  <h2>Popular posts</h2>
-  {% if popular_posts|length >= 1 %}
-    {% for post in popular_posts %}
-      <article>
-        <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
-        {% if post.content|length < 70 %}
-          <p>{{ post.content }}</p>
-        {% else %}
-          <p>{{ post.content[:70] }}...</p>
-        {% endif %}
-      </article>
-    {% endfor %}
-  {% else %}
-    <h2>No posts</h2>
-  {% endif %}
+  <section class="greeting">
+    <h2>Welcome to <span class="gradient-text">PyProject</span></h2>
+    <p>A blogging platform written in pure python (no web frameworks used!) for developer to share their coding
+      knowledge</p>
+  </section>
+
+  <section class="popular-posts-container">
+    <h3>Popular posts</h3>
+    <div class="popular-posts-border">
+      <div class="popular-posts">
+        {{ posts(popular_posts, "h4") }}
+      </div>
+    </div>
+  </section>
 {% endblock %}
