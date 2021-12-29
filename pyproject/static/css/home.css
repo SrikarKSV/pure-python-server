@@ -23,6 +23,10 @@ header {
   margin-bottom: 0;
 }
 
+h1.gradient-text a {
+  text-decoration: none;
+}
+
 nav ul {
   display: flex;
   justify-content: space-between;
@@ -86,6 +90,7 @@ nav a {
   margin: auto;
   background: var(--gradient-text);
   border-radius: var(--border-radius-sm);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
 }
 
 .popular-posts {
@@ -101,27 +106,12 @@ nav a {
   border-radius: var(--border-radius-lg);
   border: 2px solid var(--green);
   margin: 1rem 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .post a {
   text-decoration: none;
   color: inherit;
-}
-
-.post .view-count,
-.post .posted-at {
-  padding: 0.4em 0.3em;
-  border-radius: var(--border-radius-sm);
-}
-
-.post .view-count {
-  color: var(--black);
-  background-color: var(--yellow);
-}
-
-.post .posted-at {
-  color: var(--white);
-  background: var(--purple);
 }
 
 .post h4 {
@@ -132,6 +122,22 @@ nav a {
 .post h3 {
   font-size: 3rem;
   margin: 0.5rem 0 1rem;
+}
+
+.view-count,
+.posted-at {
+  padding: 0.4em 0.3em;
+  border-radius: var(--border-radius-sm);
+}
+
+.view-count {
+  color: var(--black);
+  background-color: var(--yellow);
+}
+
+.posted-at {
+  color: var(--white);
+  background: var(--purple);
 }
 
 /********************* Forms *********************/
@@ -160,7 +166,7 @@ input {
 
 textarea {
   resize: vertical;
-  height: 10rem;
+  height: 30rem;
 }
 
 /********************* Errors *********************/
