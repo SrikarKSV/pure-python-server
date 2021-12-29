@@ -2,6 +2,9 @@
   max-width: 1100px;
   margin: auto;
   padding: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /********************* Header & Nav  *********************/
@@ -97,6 +100,10 @@ nav a {
   border-radius: var(--border-radius-sm);
   padding: 3rem;
   background-color: #031b34;
+}
+
+.popular-posts .no-posts {
+  text-align: center;
 }
 
 /********************* Posts *********************/
