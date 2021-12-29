@@ -25,3 +25,4 @@ The goals of the project:
 - [x] Use markdown for article content
 - [x] Update and delete articles
 - [x] Style with CSS
+- [ ] Add meta tags
