@@ -42,13 +42,28 @@
   cursor: pointer;
 }
 
+.btn a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .btn.btn-lg {
   font-size: 1.5rem;
+}
+
+.btn.btn-md {
+  font-size: 1.2rem;
+  padding: 0.2em 1em;
 }
 
 .btn.btn-green {
   color: var(--white);
   background-color: var(--green);
+}
+
+.btn.btn-blue {
+  color: var(--white);
+  background-color: var(--ligh-blue);
 }
 
 html {

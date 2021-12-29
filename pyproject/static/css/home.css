@@ -140,6 +140,10 @@ nav a {
   background: var(--purple);
 }
 
+.btn-page {
+  display: inline-block;
+}
+
 /********************* Forms *********************/
 
 label {

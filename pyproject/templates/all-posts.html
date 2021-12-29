@@ -6,11 +6,11 @@
   {{ all_posts(posts, "h3") }}
 
   {% if prev_page %}
-    <button><a href="/posts?page={{ prev_page }}">Previous</a></button>
+    <button class="btn btn-md btn-blue btn-page"><a href="/posts?page={{ prev_page }}">Previous</a></button>
   {% endif %}
 
   {% if next_page %}
-    <button><a href="/posts?page={{ next_page }}">Next</a></button>
+    <button class="btn btn-md btn-blue btn-page"><a href="/posts?page={{ next_page }}">Next</a></button>
   {% endif %}
 
 {% endblock %}
