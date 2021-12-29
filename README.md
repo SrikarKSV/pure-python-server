@@ -24,4 +24,4 @@ The goals of the project:
 - [x] A form page to add new articles
 - [x] Use markdown for article content
 - [x] Update and delete articles
-- [ ] Style with CSS
+- [x] Style with CSS
