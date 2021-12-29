@@ -8,7 +8,7 @@ from wsgiref import util
 from jinja2 import Environment, FileSystemLoader
 
 from ..errors import ErrorResponse
-from .utils import HTTP_MESSAGE
+from .utils import HTTP_MESSAGE, pretty_date
 
 
 def is_request_file(environ):
@@ -114,9 +114,9 @@ def render_template(file: str, response, context: dict = {}, status_code: int = 
     """
     try:
         templates_directory = Path.cwd() / "pyproject" / "templates"
-        template = Environment(
-            loader=FileSystemLoader(templates_directory.absolute())
-        ).get_template(file)
+        env = Environment(loader=FileSystemLoader(templates_directory.absolute()))
+        env.globals["pretty_date"] = pretty_date
+        template = env.get_template(file)
         html = template.render(context)
         response(HTTP_MESSAGE[status_code], [("Content-Type", "text/html")])
         return [bytes(html, "utf-8")]

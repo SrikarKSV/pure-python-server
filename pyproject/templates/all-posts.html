@@ -6,6 +6,7 @@
     {% for post in posts %}
       <article>
         <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
+        <time>Posted {{ pretty_date(post.created_at) }}</time>
         {% if post.content|length < 70 %}
           <p>{{ post.content }}</p>
         {% else %}
