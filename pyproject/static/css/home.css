@@ -136,7 +136,6 @@ nav a {
   display: inline-block;
   padding: 0.1em 0.3em;
   border-radius: var(--border-radius-sm);
-  white-space: nowrap;
   margin-top: 3px;
 }
 
