@@ -84,6 +84,7 @@ def serve_static_files(environ, response):
                 ("Content-Type", file_type),
                 ("Content-Length", str(fs[6])),
                 ("Last-Modified", email.utils.formatdate(fs.st_mtime, usegmt=True)),
+                ("Cache-Control", "public, max-age=31536000"),
             ],
         )
         return util.FileWrapper(f)
