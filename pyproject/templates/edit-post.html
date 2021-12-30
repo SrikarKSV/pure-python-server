@@ -9,6 +9,6 @@
 {% block content %}
   <h2 class="heading">Edit post</h2>
   <form action="/posts/{{ post.id }}/edit" method="POST">
-    {{ post_form(button_text="Edit post", title=post.title, content=post.markdown, post_id=post.id) }}
+    {{ post_form(button_text="Edit post", title=post.title, name=post.name,content=post.markdown, post_id=post.id) }}
   </form>
 {% endblock %}
