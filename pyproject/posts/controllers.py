@@ -33,7 +33,7 @@ def get_all_posts(environ, response):
     prev_page = page - 1 if page > 1 else None
     next_page = page + 1 if skip + len(posts) < total_posts else None
 
-    url = f"https://{environ['REMOTE_HOST']}{environ['PATH_INFO']}"
+    url = f"https://{environ['HTTP_HOST']}{environ['PATH_INFO']}"
     title = "All posts"
     description = "Browse all the articles of PyProject!"
     context = {
@@ -66,7 +66,7 @@ def get_post(environ, response):
     post.view_count += 1
     session.commit()
 
-    url = f"https://{environ['REMOTE_HOST']}{environ['PATH_INFO']}"
+    url = f"https://{environ['HTTP_HOST']}{environ['PATH_INFO']}"
     title = post.title
     description = f"Read an article by {post.name}"
     context = {
@@ -123,7 +123,7 @@ def get_edit(environ, response):
     if not post:
         raise ErrorResponse(404, "Post not found")
 
-    url = f"https://{environ['REMOTE_HOST']}{environ['PATH_INFO']}"
+    url = f"https://{environ['HTTP_HOST']}{environ['PATH_INFO']}"
     description = f"Edit an article by {post.name}"
     title = "Edit post"
     context = {"title": title, "post": post, "url": url, "description": description}

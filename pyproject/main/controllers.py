@@ -17,7 +17,7 @@ def get_popular_posts(environ, response):
         .all()
     )
 
-    url = f"https://{environ['REMOTE_HOST']}{environ['PATH_INFO']}"
+    url = f"https://{environ['HTTP_HOST']}{environ['PATH_INFO']}"
     title = "Home"
     description = "A blogging platform written in pure python (no web frameworks used!) for developer to share their coding knowledge"
     context = {
