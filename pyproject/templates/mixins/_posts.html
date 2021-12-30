@@ -15,7 +15,7 @@
         {% if show_views %}
           <span class="view-count">{{ post.view_count }} views</span>
         {% endif %}
-        <span class="posted-at">Posted <time datetime="post.created_at">{{ pretty_date(post.created_at) }}</time></span>
+        <span class="posted-at">Posted by {{ post.name }} <time datetime="{{ post.created_at }}">{{ pretty_date(post.created_at) }}</time></span>
       </article>
     {% endfor %}
   {% else %}

@@ -293,4 +293,8 @@ footer .socials img {
   .post h3 {
     font-size: 1.8rem;
   }
+
+  .popular-posts .post {
+    padding: 1em 1.3em;
+  }
 }

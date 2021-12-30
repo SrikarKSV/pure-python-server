@@ -54,6 +54,17 @@
     </div>
   </footer>
 
+  <script>
+    const timeElements = document.querySelectorAll("time");
+
+    if (timeElements.length) {
+      timeElements.forEach((time) => {
+        const datetime = time.dateTime;
+        const localDatetime = new Date(`${datetime} UTC`);
+        time.setAttribute("datetime", localDatetime);
+      });
+    }
+  </script>
   {% block script_tags %}{% endblock script_tags %}
 </body>
 

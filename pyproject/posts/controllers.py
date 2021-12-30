@@ -80,9 +80,16 @@ def get_post(environ, response):
 def create_post(environ, response):
     data = parse_post_form(environ)
     title = data.get("title", "")
+    name = data.get("name", "")
     content = data.get("content", "")
-    if not title or not content:
-        raise ErrorResponse(422, "Fill both title and article body before submitting")
+    if not title or not content or not name:
+        raise ErrorResponse(422, "Fill all fields before submitting")
+
+    if len(title) > 100:
+        raise ErrorResponse(422, "Title should have a maximum length of 100 characters")
+
+    if len(name) > 8:
+        raise ErrorResponse(422, "Name should have a maximum length of 100 characters")
 
     session = create_session()
     # Convert HTML to markdown and sanitize
@@ -92,7 +99,7 @@ def create_post(environ, response):
     sanitized_html = bleach.clean(
         html_content, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES, strip=True
     )
-    post = Post(title=title, markdown=content, content=sanitized_html)
+    post = Post(title=title, name=name, markdown=content, content=sanitized_html)
     session.add(post)
     session.commit()
     # Redirect to /posts/id
@@ -126,11 +133,18 @@ def post_edit(environ, response):
     data = parse_post_form(environ)
     post_id = data.get("id", "")
     title = data.get("title", "")
+    name = data.get("name", "")
     content = data.get("content", "")
     if not title or not content:
-        raise ErrorResponse(422, "Fill both title and article body before submitting")
+        raise ErrorResponse(422, "Fill all fields before submitting")
     if not post_id:
         raise ErrorResponse(422, "Id of the post not given")
+
+    if len(title) > 100:
+        raise ErrorResponse(422, "Title should have a maximum length of 100 characters")
+
+    if len(name) > 8:
+        raise ErrorResponse(422, "Name should have a maximum length of 100 characters")
 
     session = create_session()
     post = session.query(Post).get(post_id)
@@ -143,6 +157,7 @@ def post_edit(environ, response):
         html_content, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES, strip=True
     )
     post.title = title
+    post.name = name
     post.markdown = content
     post.content = sanitized_html
     session.commit()

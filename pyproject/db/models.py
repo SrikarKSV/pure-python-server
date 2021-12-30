@@ -12,6 +12,7 @@ class Post(SqlAlchemyBase):
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     view_count = Column(Integer, nullable=False, default=0)
     title = Column(String(100), nullable=False)
+    name = Column(String(100), nullable=False)
     content = Column(Text, nullable=False)
     markdown = Column(Text, nullable=False)
 

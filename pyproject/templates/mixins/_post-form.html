@@ -1,6 +1,10 @@
-{% macro post_form(button_text, title="", content="", post_id="") -%}
-  <label for="title">Title</label>
-  <input type="text" name="title" id="title" value="{{ title }}" required>
+{% macro post_form(button_text, title="", content="", post_id="", name="") -%}
+  <label for="title">Title <small class="grey-text">(Maximum 100 characters)</small></label>
+  <input type="text" name="title" id="title" value="{{ title }}" maxlength="100" required>
+
+  <label for="name">Your name <small class="grey-text">(Maximum 8 characters)</small></label>
+  <input type="text" name="name" id="name" value="{{ name }}" maxlength="8" required>
+
   <label for="content">Article content <small class="grey-text">(Enter markdown)</small></label>
 
   {% if content %}
