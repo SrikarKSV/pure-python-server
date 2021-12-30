@@ -62,6 +62,7 @@
         const datetime = time.dateTime;
         const localDatetime = new Date(`${datetime} UTC`);
         time.setAttribute("datetime", localDatetime);
+        time.setAttribute("title", localDatetime);
       });
     }
   </script>
