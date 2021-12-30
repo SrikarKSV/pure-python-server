@@ -26,7 +26,64 @@
   background-color: var(--red);
   color: var(--white);
 }
+/********************* Modal  *********************/
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.5em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.modal.open {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.modal-inner {
+  transform: translateY(-2rem);
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.modal.open .modal-inner {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-inner p {
+  font-size: 1.1rem;
+}
+
+.modal-inner button {
+  display: inline-block;
+  color: var(--white);
+}
+
+.modal-inner .modal-cancel {
+  background-color: var(--grey-bc);
+}
+
+.modal-inner .modal-delete {
+  background-color: var(--red);
+}
+
+.modal-inner {
+  background-color: var(--home-bc);
+  padding: 1em;
+  border-radius: var(--border-radius-lg);
+}
+
+/********************* Markdown  *********************/
 .markdown h1 {
   margin-top: 0;
   font-size: 2.488rem;

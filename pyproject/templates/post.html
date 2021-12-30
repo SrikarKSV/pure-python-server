@@ -16,6 +16,15 @@
     </div>
     {{ post.content|safe }}
   </div>
+
+  <aside class="modal">
+      <div class="modal-inner">
+        <p>Are you sure you want to delete your post? You can't undo this.</p>
+        <button class="btn btn-sm modal-cancel">Cancel</button>
+        <button class="btn btn-sm modal-delete">Delete post</button>
+      </div>
+  </aside>
+
 {% endblock content %}
 
 {% block script_tags %}
