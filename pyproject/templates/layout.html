@@ -5,18 +5,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"> #}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,600;1,400;1,600&display=swap"
         rel="stylesheet">
+  <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="/css/main.css">
+  {% block head_tags %}{% endblock head_tags %}
   {% if title %}
     <title>{{ title }} — PyProject</title>
   {% else %}
     <title>PyProject</title>
   {% endif %}
-  {% block head_tags %}{% endblock head_tags %}
 </head>
 
 <body class="container">
@@ -42,10 +42,12 @@
   <footer>
     <p>Made with ❤️ by Srikar</p>
     <div class="socials">
-      <a aria-label="Find me on Twitter" rel="noreferrer noopener" href="https://twitter.com/SrikarVks" title="Twitter" target="_blank">
+      <a aria-label="Find me on Twitter" rel="noreferrer noopener" href="https://twitter.com/SrikarVks" title="Twitter"
+         target="_blank">
         <img src="/assets/twitter.svg" alt="Twitter icon">
       </a>
-      <a aria-label="Find me on Github" rel="noreferrer noopener" href="https://github.com/SrikarKSV/pure-python-server" title="Github"
+      <a aria-label="Find me on Github" rel="noreferrer noopener" href="https://github.com/SrikarKSV/pure-python-server"
+         title="Github"
          target="_blank">
         <img src="/assets/github.svg" alt="GitHub icon">
       </a>

@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
 {% from "mixins/_posts.html" import posts %}
+{% from "mixins/_meta-tags.html" import meta_tags %}
+
+{% block head_tags %}
+  {{ meta_tags(title=title, url=url, description=description) }}
+{% endblock head_tags %}
 
 {% block content %}
   <section class="greeting">

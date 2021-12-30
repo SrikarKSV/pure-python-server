@@ -17,5 +17,13 @@ def get_popular_posts(environ, response):
         .all()
     )
 
-    context = {"popular_posts": popular_posts}
+    url = f"https://{environ['REMOTE_HOST']}{environ['PATH_INFO']}"
+    title = "Home"
+    description = "A blogging platform written in pure python (no web frameworks used!) for developer to share their coding knowledge"
+    context = {
+        "popular_posts": popular_posts,
+        "title": title,
+        "url": url,
+        "description": description,
+    }
     return render_template("index.html", response, context)
