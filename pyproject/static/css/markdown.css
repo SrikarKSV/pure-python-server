@@ -4,6 +4,11 @@
   max-width: 80%;
 }
 
+.markdown .markdown-heading {
+  font-size: 3.157rem;
+  font-weight: 600;
+}
+
 .markdown .btn-inline-block {
   display: inline-block;
 }
@@ -20,10 +25,6 @@
 .markdown .btn-delete {
   background-color: var(--red);
   color: var(--white);
-}
-
-.markdown .markdown-heading {
-  font-size: 3.157rem;
 }
 
 .markdown h1 {
@@ -97,6 +98,10 @@
 .markdown thead th {
   background-color: var(--black);
   color: var(--white);
+}
+
+.markdown strong {
+  font-weight: 600;
 }
 
 .markdown ::-webkit-scrollbar {
