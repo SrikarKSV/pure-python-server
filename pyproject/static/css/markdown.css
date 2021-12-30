@@ -73,6 +73,10 @@
   margin: 1rem 0;
 }
 
+.markdown img {
+  max-width: 100%;
+}
+
 .markdown table {
   width: 100%;
   overflow: hidden;
