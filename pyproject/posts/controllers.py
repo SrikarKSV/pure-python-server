@@ -87,10 +87,19 @@ def create_post(environ, response):
         raise ErrorResponse(422, "Fill all fields before submitting")
 
     if len(title) > 100:
-        raise ErrorResponse(422, "Title should have a maximum length of 100 characters")
+        raise ErrorResponse(
+            422, "Title should only have a maximum length of 100 characters"
+        )
 
     if len(name) > 8:
-        raise ErrorResponse(422, "Name should have a maximum length of 100 characters")
+        raise ErrorResponse(
+            422, "Name should only have a maximum length of 8 characters"
+        )
+
+    if len(content) > 14000:
+        raise ErrorResponse(
+            422, "Content should only have a maximum length of 14000 characters"
+        )
 
     session = create_session()
     # Convert HTML to markdown and sanitize
@@ -142,10 +151,19 @@ def post_edit(environ, response):
         raise ErrorResponse(422, "Id of the post not given")
 
     if len(title) > 100:
-        raise ErrorResponse(422, "Title should have a maximum length of 100 characters")
+        raise ErrorResponse(
+            422, "Title should only have a maximum length of 100 characters"
+        )
 
     if len(name) > 8:
-        raise ErrorResponse(422, "Name should have a maximum length of 100 characters")
+        raise ErrorResponse(
+            422, "Name should only have a maximum length of 8 characters"
+        )
+
+    if len(content) > 14000:
+        raise ErrorResponse(
+            422, "Content should only have a maximum length of 14000 characters"
+        )
 
     session = create_session()
     post = session.query(Post).get(post_id)

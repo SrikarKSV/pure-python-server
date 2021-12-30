@@ -5,12 +5,12 @@
   <label for="name">Your name <small class="grey-text">(Maximum 8 characters)</small></label>
   <input type="text" name="name" id="name" value="{{ name }}" maxlength="8" required>
 
-  <label for="content">Article content <small class="grey-text">(Enter markdown)</small></label>
+  <label for="content">Article content <small class="grey-text">(Enter markdown, maximum 14000 characters)</small></label>
 
   {% if content %}
-    <textarea name="content" id="content" required>{{ content }}</textarea>
+    <textarea name="content" id="content" maxlength="14000" required>{{ content }}</textarea>
   {% else %}
-    <textarea name="content" id="content" required>
+    <textarea name="content" id="content" maxlength="14000" required>
 # Why did the angry function exceed the callstack size?
 It got into an Argument with itself</textarea>
   {% endif %}
