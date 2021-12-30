@@ -136,6 +136,11 @@ select {
   padding: 0.2em 1em;
 }
 
+.btn.btn-sm {
+  font-size: 1rem;
+  padding: 0.1em 0.8em;
+}
+
 .btn.btn-green {
   color: var(--white);
   background-color: var(--green);
