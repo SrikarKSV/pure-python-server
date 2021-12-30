@@ -3,6 +3,7 @@ from .lib import route_url
 from .lib.serve_files import is_request_file, serve_static_files
 from .main import router as home_router
 from .posts import router as posts_router
+import json
 
 
 def app(environ, response):
@@ -11,6 +12,10 @@ def app(environ, response):
         return serve_static_files(environ, response)
 
     url = environ["PATH_INFO"]
+
+    print(environ)
+    response("200 OK", [("Content-type", "text/plain")])
+    return [bytes(str(environ), "utf-8")]
 
     if route_url(["^\/$", "\/new(\/)?"], url):  # Accepts ['/', '/new']
         return home_router(environ, response)
