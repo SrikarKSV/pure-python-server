@@ -119,7 +119,13 @@ def render_template(file: str, response, context: dict = {}, status_code: int = 
         env.globals["pretty_date"] = pretty_date
         template = env.get_template(file)
         html = template.render(context)
-        response(HTTP_MESSAGE[status_code], [("Content-Type", "text/html")])
+        response(
+            HTTP_MESSAGE[status_code],
+            [
+                ("Content-Type", "text/html"),
+                ("Cache-Control", "public, max-age=0, must-revalidate"),
+            ],
+        )
         return [bytes(html, "utf-8")]
     except Exception as error:
         raise ErrorResponse(500, error)
