@@ -67,9 +67,10 @@ def get_post(environ, response):
     session.commit()
 
     url = f"https://{environ['REMOTE_HOST']}{environ['PATH_INFO']}"
-    description = "Read an article on PyProject"
+    title = post.title
+    description = f"Read an article by {post.name}"
     context = {
-        "title": post.title,
+        "title": title,
         "post": post,
         "url": url,
         "description": description,
@@ -123,7 +124,7 @@ def get_edit(environ, response):
         raise ErrorResponse(404, "Post not found")
 
     url = f"https://{environ['REMOTE_HOST']}{environ['PATH_INFO']}"
-    description = "Edit a post on PyProject"
+    description = f"Edit an article by {post.name}"
     title = "Edit post"
     context = {"title": title, "post": post, "url": url, "description": description}
     return render_template("edit-post.html", response, context)
