@@ -3,5 +3,7 @@
 {% block content %}
   <h2 class="heading">{{ status }} error</h2>
   <p class="error-msg">{{ msg }}</p>
-  <pre class="error-stack">{{ stack }}</pre>
+  {% if stack %}
+    <pre class="error-stack">{{ stack }}</pre>
+  {% endif %}
 {% endblock content %}
