@@ -6,6 +6,16 @@ from .posts import router as posts_router
 
 
 def app(environ, response):
+    """
+    A callable Python object which is called for every request along with two parameters and returns a response
+
+        Parameters:
+            environ (dict): A dictionary populated with information of the request
+            response (function): Function given by WSGI
+
+        Returns:
+            template (List[bytes]): Template filled with data converted to iterable bytes
+    """
     # Serve static file
     if is_request_file(environ):
         return serve_static_files(environ, response)
