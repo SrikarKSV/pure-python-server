@@ -1,4 +1,4 @@
-# Pure Python web server - PyProject
+# Pure Python web application - PyProject
 
 A blogging platform written in pure python (no web frameworks used) for developer to share their coding knowledge
 
