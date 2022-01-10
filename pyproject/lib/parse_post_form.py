@@ -1,7 +1,9 @@
 from urllib.parse import parse_qs
 
 
-def parse_post_form(environ):
+def parse_post_form(environ: dict) -> dict:
+    """Accepts environ and returns key-value pairs parsed from a form submitted through POST request"""
+
     # the environment variable CONTENT_LENGTH may be empty or missing
     try:
         request_body_size = int(environ.get("CONTENT_LENGTH", 0))

@@ -1,10 +1,11 @@
 import os
 import traceback
+import typing as t
 
 from ..lib import render_template
 
 
-def global_error_handler(error, response):
+def global_error_handler(error: Exception, response: t.Callable) -> t.List[bytes]:
     """A global error handler, which directs the error based on mode"""
     # Assigning status code to exception objects
     try:
@@ -13,12 +14,12 @@ def global_error_handler(error, response):
         error.status_code = 500
 
     if os.getenv("MODE") == "development":
-        return sendDevError(error, response)
+        return send_dev_error(error, response)
     elif os.getenv("MODE") == "production":
-        return sendProdError(error, response)
+        return send_prod_error(error, response)
 
 
-def sendDevError(error, response):
+def send_dev_error(error: Exception, response: t.Callable) -> t.List[bytes]:
     """An error handler for development mode, sends the traceback along with response"""
     # Getting traceback from exception
     stack = "".join(traceback.TracebackException.from_exception(error).format())
@@ -34,7 +35,7 @@ def sendDevError(error, response):
     )
 
 
-def sendProdError(error, response):
+def send_prod_error(error: Exception, response: t.Callable) -> t.List[bytes]:
     """An error handler for production mode"""
 
     context = {

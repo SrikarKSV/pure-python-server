@@ -1,10 +1,11 @@
 import datetime
+import typing as t
 
 from ..db import Post, create_session
 from ..lib.serve_files import render_template
 
 
-def get_popular_posts(environ, response):
+def get_popular_posts(environ: dict, response: t.Callable) -> t.List[bytes]:
     session = create_session()
     today = datetime.datetime.utcnow()
     week_ago = today - datetime.timedelta(days=7)

@@ -1,3 +1,5 @@
+import typing as t
+
 from .errors import ErrorResponse
 from .lib import route_url
 from .lib.serve_files import is_request_file, serve_static_files
@@ -5,16 +7,15 @@ from .main import router as home_router
 from .posts import router as posts_router
 
 
-def app(environ, response):
+def app(environ: dict, response: t.Callable) -> t.Any:
     """
     A callable Python object which is called for every request along with two parameters and returns a response
 
         Parameters:
-            environ (dict): A dictionary populated with information of the request
-            response (function): Function given by WSGI
-
-        Returns:
-            template (List[bytes]): Template filled with data converted to iterable bytes
+            environ (dict): A dictionary populated with information of the request (Given by the WSGI server)
+            response (function): A callable accepting a status code,
+                a list of headers, and an optional exception context to
+                start the response.
     """
     # Serve static file
     if is_request_file(environ):

@@ -1,4 +1,5 @@
 import re
+import typing as t
 
 import bleach
 import markdown
@@ -9,7 +10,7 @@ from ..lib import HTTP_MESSAGE, parse_get_form, parse_post_form, render_template
 from ..lib.utils import ALLOWED_ATTRIBUTES, ALLOWED_TAGS
 
 
-def get_all_posts(environ, response):
+def get_all_posts(environ: dict, response: t.Callable) -> t.List[bytes]:
     session = create_session()
     total_posts = session.query(Post).count()
     per_page = 5
@@ -47,7 +48,7 @@ def get_all_posts(environ, response):
     return render_template("all-posts.html", response, context)
 
 
-def get_post(environ, response):
+def get_post(environ: dict, response: t.Callable) -> t.List[bytes]:
     try:
         post_id = int(
             re.compile("^\/posts\/(?P<id>\d{1,})(\/)?$")
@@ -78,7 +79,7 @@ def get_post(environ, response):
     return render_template("post.html", response, context)
 
 
-def create_post(environ, response):
+def create_post(environ: dict, response: t.Callable) -> t.List[bytes]:
     data = parse_post_form(environ)
     title = data.get("title", "")
     name = data.get("name", "")
@@ -117,7 +118,7 @@ def create_post(environ, response):
     return [b""]
 
 
-def get_edit(environ, response):
+def get_edit(environ: dict, response: t.Callable) -> t.List[bytes]:
     try:
         post_id = int(
             re.compile("^\/posts\/(?P<id>\d{1,})\/edit(\/)?$")
@@ -139,7 +140,7 @@ def get_edit(environ, response):
     return render_template("edit-post.html", response, context)
 
 
-def post_edit(environ, response):
+def post_edit(environ: dict, response: t.Callable) -> t.List[bytes]:
     data = parse_post_form(environ)
     post_id = data.get("id", "")
     title = data.get("title", "")
@@ -185,7 +186,7 @@ def post_edit(environ, response):
     return [b""]
 
 
-def delete_post(environ, response):
+def delete_post(environ: dict, response: t.Callable) -> t.List[bytes]:
     post_id = int(
         re.compile("^\/posts\/(?P<id>\d{1,})\/delete(\/)?$")
         .search(environ["PATH_INFO"])

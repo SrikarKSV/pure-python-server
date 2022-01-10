@@ -2,6 +2,7 @@ import datetime
 import email
 import mimetypes
 import os
+import typing as t
 from pathlib import Path
 from wsgiref import util
 
@@ -11,20 +12,24 @@ from ..errors import ErrorResponse
 from .utils import HTTP_MESSAGE, pretty_date
 
 
-def is_request_file(environ):
+def is_request_file(environ: dict) -> bool:
     return bool(Path(environ["PATH_INFO"]).suffix)
 
 
-def serve_static_files(environ, response):
+def serve_static_files(
+    environ: dict, response: t.Callable
+) -> t.Union[list[bytes], util.FileWrapper]:
     """
     Responds with a static file if found 0r 304 Not Modified, else gives 404
 
         Parameters:
-            environ (dict): Dictionary filled with request details (Given by WSGI)
-            response (function): Function given by WSGI, to respond
+            environ (dict): A dictionary populated with information of the request (Given by the WSGI server)
+            response (function): A callable accepting a status code,
+                a list of headers, and an optional exception context to
+                start the response.
 
         Returns:
-            static_file (List[bytes]): Static file, if found converted to iterable bytes
+            static_file (list[bytes] | util.FileWrapper): Static file, if found converted to iterable bytes
     """
     static_file = (
         Path.resolve(Path.cwd())
@@ -100,13 +105,17 @@ def serve_static_files(environ, response):
         return [bytes(res, "utf-8")]
 
 
-def render_template(file: str, response, context: dict = {}, status_code: int = 200):
+def render_template(
+    file: str, response: t.Callable, context: dict = {}, status_code: int = 200
+) -> t.List[bytes]:
     """
     Accepts jinja file and returns the template
 
         Parameters:
             file (str): Name of the Jinja file, inside templates folder
-            response (function): Function given by WSGI
+            response (function): A callable accepting a status code,
+                a list of headers, and an optional exception context to
+                start the response.
             context (dict): Dict filled with variables to embed in template
             status_code (int): HTTP status code, to respond
 

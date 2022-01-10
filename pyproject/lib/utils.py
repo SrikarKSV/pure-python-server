@@ -1,4 +1,5 @@
 import re
+import typing as t
 from datetime import datetime
 
 HTTP_MESSAGE = {
@@ -13,15 +14,15 @@ HTTP_MESSAGE = {
 
 
 # Checks if any regex matches with given URL
-def route_url(regexes, url):
+def route_url(regexes: t.List[str], url: str) -> bool:
     matches = [bool(re.compile(regex).match(url)) for regex in regexes]
     return any(matches)
 
 
-def pretty_date(time=False):
+def pretty_date(time: t.Union[int, datetime]) -> str:
     """
     Get a datetime object or a int() Epoch timestamp and return a
-    pretty string like 'an hour ago', 'Yesterday', '3 months ago',
+    pretty string like 'an hour ago', '3 months ago',
     'just now', etc
     """
 

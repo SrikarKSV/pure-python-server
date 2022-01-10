@@ -1,7 +1,9 @@
 from urllib.parse import parse_qs
 
 
-def parse_get_form(environ):
+def parse_get_form(environ: dict) -> dict:
+    """Accepts environ and returns key-value pairs parsed from a form submitted through POST request"""
+
     # Get query strings and parse them
     query_string = parse_qs(environ["QUERY_STRING"])
 

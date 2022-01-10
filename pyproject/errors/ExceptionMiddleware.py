@@ -1,3 +1,5 @@
+import typing as t
+
 from .error_handlers import global_error_handler
 
 
@@ -11,10 +13,10 @@ class ExceptionMiddleware:
         Function called by WSGI server when a request is made
     """
 
-    def __init__(self, app):
+    def __init__(self, app) -> None:
         self.app = app
 
-    def __call__(self, environ, response):
+    def __call__(self, environ: dict, response: t.Callable) -> t.Any:
         """
         When the object is called upon a request, the attribute app is called
 
@@ -22,8 +24,10 @@ class ExceptionMiddleware:
 
         Parameters
         ----------
-        environ (dict): Dictionary filled with request details (Given by WSGI)
-        response (function): Function given by WSGI, to respond
+        environ (dict): A dictionary populated with information of the request (Given by the WSGI server)
+        response (function): A callable accepting a status code,
+                a list of headers, and an optional exception context to
+                start the response.
 
         Returns
         -------

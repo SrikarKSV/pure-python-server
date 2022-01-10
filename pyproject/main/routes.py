@@ -1,4 +1,5 @@
 import re
+import typing as t
 
 from ..errors import ErrorResponse
 from ..lib import render_template
@@ -6,7 +7,7 @@ from ..main.controllers import get_popular_posts
 
 
 # Build router for request method and give 403 is wrong
-def router(environ, response):
+def router(environ: dict, response: t.Callable) -> t.List[bytes]:
     url = environ["PATH_INFO"]
     http_method = environ["REQUEST_METHOD"]
 
