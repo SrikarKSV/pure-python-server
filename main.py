@@ -10,8 +10,11 @@ from pyproject.errors.ExceptionMiddleware import ExceptionMiddleware
 load_dotenv()  # Loads environment variables from .env file
 db_init()  # Initialize DB session
 
+# Main function that is called when a request is made
 app = ExceptionMiddleware(app)
 
+# If no WSGI server is setup then run main.py directly
+# to use inbuilt Python WSGI server (Which is very slow)
 if __name__ == "__main__":
     PORT = int(os.getenv("PORT", 3000))
     httpd = simple_server.make_server("", PORT, app)
