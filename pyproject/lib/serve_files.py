@@ -18,7 +18,7 @@ def is_request_file(environ: dict) -> bool:
 
 def serve_static_files(
     environ: dict, response: t.Callable
-) -> t.Union[list[bytes], util.FileWrapper]:
+) -> t.Union[t.List[bytes], util.FileWrapper]:
     """
     Responds with a static file if found 0r 304 Not Modified, else gives 404
 
